@@ -1,4 +1,13 @@
+#results {
+    margin-top: 30px;
+    opacity: 0.8;
+}
+
 body {
+    background-image: url('close-up-human-hand-holding-blue-puzzle-piece-with-brain-cogwheel-drawing.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
     font-family: Arial, sans-serif;
     background-color: #f7f7f7;
     margin: 0;
