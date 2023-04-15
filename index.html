@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Reddit Comments</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Reddit Comments</h1>
+<form id="reddit-form">
+    <label for="name-input">Enter a Reddit username:</label>
+    <input type="text" id="name-input" name="name">
+    <button type="submit">Submit</button>
+</form>
+<div id="results"></div>
+
+<script>
+    const form = document.getElementById('reddit-form');
+    const results = document.getElementById('results');
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const name = formData.get('name');
+
+        try {
+            const response = await fetch(`/personality?name=${name}`);
+            const data = await response.text();
+            results.innerHTML = data;
+        } catch (error) {
+            results.innerHTML = `<p>Error: ${error.message}</p>`;
+        }
+    });
+</script>
+</body>
+</html>
