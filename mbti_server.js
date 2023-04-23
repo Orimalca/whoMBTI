@@ -3,6 +3,15 @@ import dotenv from 'dotenv';
 import fetch from 'node-fetch';
 import * as path from "path";
 
+// Remove text inside square brackets
+
+// Remove text inside curly braces
+
+// Remove URLs starting with http/https or www.
+
+// Remove HTML tags
+
+// Remove line breaks
 dotenv.config();
 const app = express();
 const port = 8080;
@@ -29,7 +38,13 @@ app.get('/personality', (req, res) => {
         .then(response => response.json())
         .then(data => {
             const comments = data.data.children.map(comment => comment.data.body).join('\n');
-            res.status(200).send(`${name}, your comments on Reddit are:\n${comments}`);
+            const regex = /Hello,\s*\/u\/\w+\.\s*Your post has been removed for violating Rule \d+\.\s*\*\*.*?\*\*\s*Please read \[our complete rules page\]\([^)]+\) before participating in the future\./g;
+            let clean_comments = comments.replace(regex, "");
+            clean_comments = clean_comments.replace(/Hello,\s*\/u\/\w+\.\s*Your post has been removed for violating Rule 10\.\s*\*\*No social-media, messaging, or AI-generated content content\*\*\s*Please read before participating in the future\./g, '');
+            clean_comments = clean_comments.replace(/\{.*?\}/g, '');
+            clean_comments = clean_comments.replace(/\((https?:\/\/(?:www\.)?\S+)\)/g, '');
+            clean_comments = clean_comments.replace(/\[.*?\]/g, '');
+            res.status(200).send(`${name}, your comments on Reddit are:\n${clean_comments}`);
         })
         .catch(error => {
             console.error('Error:', error);
