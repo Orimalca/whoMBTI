@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Reddit Comments</title>
@@ -18,53 +18,52 @@
     const form = document.getElementById('reddit-form');
     const results = document.getElementById('results');
     const CLASSES = {
-        'INTJ': 'The Mastermind\n' +
-            '\n' +
+        'INTJ': '<br><strong>The Mastermind,</strong></br>' +
             'INTJs are analytical problem-solvers, eager to improve systems and processes with their innovative ideas. They have a talent for seeing possibilities for improvement, whether at work, at home, or in themselves.',
-        'INTP': 'The Architect\n' +
-            '\n' +
+
+        'INTP': '<br><strong>The Architect,</strong></br>' +
             'INTPs are philosophical innovators, fascinated by logical analysis, systems, and design. They are preoccupied with theory, and search for the universal law behind everything they see. They want to understand the unifying themes of life, in all their complexity.',
-        'INFJ': 'The Counselor\n' +
-            '\n' +
+
+        'INFJ': '<br><strong>The Counselor,</strong></br>' +
             'INFJs are creative nurturers with a strong sense of personal integrity and a drive to help others realize their potential. Creative and dedicated, they have a talent for helping others with original solutions to their personal challenges.',
-        'INFP': 'The Healer\n' +
-            '\n' +
+
+        'INFP': '<br><strong>The Healer,</strong></br>' +
             'INFPs are imaginative idealists, guided by their own core values and beliefs. To a Healer, possibilities are paramount; the reality of the moment is only of passing concern. They see potential for a better future, and pursue truth and meaning with their own flair.',
-        'ENFP': 'The Champion\n' +
-            '\n' +
+
+        'ENFP': '<br><strong>The Champion,</strong></br>' +
             'ENFPs are people-centered creators with a focus on possibilities and a contagious enthusiasm for new ideas, people and activities. Energetic, warm, and passionate, ENFPs love to help other people explore their creative potential.',
-        'ENTJ': 'The Commander\n' +
-            '\n' +
+
+        'ENTJ': '<br><strong>The Commander,</strong></br>' +
             'ENTJs are strategic leaders, motivated to organize change. They are quick to see inefficiency and conceptualize new solutions, and enjoy developing long-range plans to accomplish their vision. They excel at logical reasoning and are usually articulate and quick-witted.',
-        'ENFJ': 'The Teacher\n' +
-            '\n' +
+
+        'ENFJ': '<br><strong>The Teacher,</strong></br>' +
             'ENFJs are idealist organizers, driven to implement their vision of what is best for humanity. They often act as catalysts for human growth because of their ability to see potential in other people and their charisma in persuading others to their ideas.',
-        'ENTP': 'The Visionary\n' +
-            '\n' +
+
+        'ENTP': '<br><strong>The Visionary,</strong></br>' +
             'ENTPs are inspired innovators, motivated to find new solutions to intellectually challenging problems. They are curious and clever, and seek to comprehend the people, systems, and principles that surround them.',
-        'ESFP': 'The Performer\n' +
-            '\n' +
+
+        'ESFP': '<br><strong>The Performer,</strong></br>' +
             'ESFPs are vivacious entertainers who charm and engage those around them. They are spontaneous, energetic, and fun-loving, and take pleasure in the things around them: food, clothes, nature, animals, and especially people.',
-        'ESTJ': 'The Supervisor\n' +
-            '\n' +
+
+        'ESTJ': '<br><strong>The Supervisor,</strong></br>' +
             'ESTJs are hardworking traditionalists, eager to take charge in organizing projects and people. Orderly, rule-abiding, and conscientious, ESTJs like to get things done, and tend to go about projects in a systematic, methodical way.',
-        'ESFJ': 'The Provider\n' +
-            '\n' +
+
+        'ESFJ': '<br><strong>The Provider,</strong></br>' +
             'ESFJs are conscientious helpers, sensitive to the needs of others and energetically dedicated to their responsibilities. They are highly attuned to their emotional environment and attentive to both the feelings of others and the perception others have of them.',
-        'ESTP': 'The Dynamo\n' +
-            '\n' +
+
+        'ESTP': '<br><strong>The Dynamo,</strong></br>' +
             'ESTPs are energetic thrillseekers who are at their best when putting out fires, whether literal or metaphorical. They bring a sense of dynamic energy to their interactions with others and the world around them.',
-        'ISTP': 'The Craftsperson\n' +
-            '\n' +
+
+        'ISTP': '<br><strong>The Craftsperson,</strong></br>' +
             'ISTPs are observant artisans with an understanding of mechanics and an interest in troubleshooting. They approach their environments with a flexible logic, looking for practical solutions to the problems at hand.',
-        'ISFP': 'The Composer\n' +
-            '\n' +
+
+        'ISFP': '<br><strong>The Composer,</strong></br>' +
             'ISFPs are gentle caretakers who live in the present moment and enjoy their surroundings with cheerful, low-key enthusiasm. They are flexible and spontaneous, and like to go with the flow to enjoy what life has to offer.',
-        'ISFJ': 'The Protector\n' +
-            '\n' +
+
+        'ISFJ': 'T<br><strong>he Protector,</strong></br>' +
             'ISFJs are industrious caretakers, loyal to traditions and organizations. They are practical, compassionate, and caring, and are motivated to provide for others and protect them from the perils of life.',
-        'ISTJ': 'The Inspector\n' +
-            '\n' +
+
+        'ISTJ': 'T<br><strong>he Inspector,</strong></br>' +
             'ISTJs are responsible organizers, driven to create and enforce order within systems and institutions. They are neat and orderly, inside and out, and tend to have a procedure for everything they do.'
     };
 
@@ -76,10 +75,9 @@
         try {
             const response = await fetch(`/personality?name=${name}`);
             const personality_type = await response.text();
-
             const msg = 'Your personality type is: '
             const explanation = CLASSES[personality_type]
-            results.innerHTML = msg+personality_type+'<br><br>Personality explanation:</br>'+explanation;
+            results.innerHTML = msg + personality_type + '<br><br>Personality explanation:</br>' + explanation;
         } catch (error) {
             results.innerHTML = `<p>Error: ${error.message}</p>`;
         }

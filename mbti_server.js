@@ -14,7 +14,7 @@ const publicDirectoryPath = path.join(process.cwd());
 app.use(express.static(publicDirectoryPath));
 
 app.get('/', (req, res) => {
-    res.sendFile(publicDirectoryPath+'/index.html');
+    res.sendFile(publicDirectoryPath + '/index.html');
 });
 
 app.get('/personality', cacheMiddleware, (req, res) => {
@@ -53,8 +53,8 @@ app.get('/personality', cacheMiddleware, (req, res) => {
             clean_comments = clean_comments.replace(/[^\da-z]/g, ' ');
             clean_comments = clean_comments.replace(/\s+/g, ' '); // Replace duplicated whitespaces with a single whitespace
             clean_comments = clean_comments.trim(); // Remove whitespaces from the start and end of the sentence
-            if(clean_comments > 22800)
-                clean_comments = clean_comments.substring(0,22799)
+            if (clean_comments > 22800)
+                clean_comments = clean_comments.substring(0, 22799)
 
             // Sending the data to the model for prediction
             let PREFIX = 'based on MBTI classify the following text:\n\n'
