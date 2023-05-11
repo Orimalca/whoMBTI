@@ -14,7 +14,7 @@ const publicDirectoryPath = path.join(process.cwd());
 app.use(express.static(publicDirectoryPath));
 
 app.get('/', (req, res) => {
-    res.sendFile(publicDirectoryPath + '/index.html');
+    res.sendFile(publicDirectoryPath + '/index_new.html');
 });
 
 app.get('/personality', cacheMiddleware, (req, res) => {

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>whoMBTI</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="style_new.css">
+
+	<style>
+		body {
+		   background-image: url("https://img.freepik.com/free-vector/shiny-white-gray-background-with-wavy-lines_1017-25101.jpg?w=1380&t=st=1682418500~exp=1682419100~hmac=cb4805ce31425bdaf8114245d3286d802310eac214a76c67a6309c279496f588");
+		   background-size: cover;
+		}
+	 </style>
+
+</head>
+<body>
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="index_new.html"><img src="C:/WhoMBTI Logo.png"  alt="logo"></a>
+		<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+		  <ul class="navbar-nav ml-auto">
+			<li class="nav-item active">
+			  <a class="nav-link" href="index_new.html">Home <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="About/about.html">About</a>
+			</li>
+		  </ul>
+		</div>
+	  </nav>
+
+	<!-- Jumbotron -->
+	<div class="jumbotron jumbotron-fluid">
+	  <div class="container">
+	    <h1 class="display-4">whoMBTI</h1>
+	    <p class="lead">Find your personality type - with the click of a button</p>
+	  </div>
+	</div>
+
+
+	<!-- Content Section -->
+	<div class="container">
+		<h2>What Is whoMBTI?</h2>
+		<p>whoMBTI uses a deep learning model to predict your personality type based on your Reddit activity. It uses your comments on the platform to categorize you as one of the 16 personality types of the MBTI model</p>
+	</div>
+
+	<!-- Carousel -->
+	<div id="carouselExampleSlidesOnly" class="carousel slide mx-auto" data-ride="carousel" style="max-width:800px;">
+		<div class="carousel-inner">
+		<div class="carousel-item active">
+			<img src="https://media-cldnry.s-nbcnews.com/image/upload/newscms/2018_38/1369557/illustration-personality-types-today-main-180920.jpg" class="d-block w-100" alt="...">
+		</div>
+		<div class="carousel-item">
+			<img src="https://www.appreciationatwork.com/wp-content/uploads/2019/03/personality.jpg" class="d-block w-100" alt="...">
+		</div>
+		<div class="carousel-item">
+			<img src="https://i.ytimg.com/vi/x7aB_ZJh89w/maxresdefault.jpg" class="d-block w-100" alt="...">
+		</div>
+		</div>
+	</div>
+	
+	<form id="reddit-form">
+		<label for="name-input">Enter a Reddit username:</label>
+		<input type="text" id="name-input" name="name">
+		<button type="submit">Submit</button>
+	</form>
+
+	<!-- Bootstrap JS and jQuery -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<!-- Custom JS -->
+	<script src="script.js"></script>
+	
+	<div id="results"></div>
+	<script>
+    const form = document.getElementById('reddit-form');
+    const results = document.getElementById('results');
+    const CLASSES = {
+        'INTJ': '<br><strong>The Mastermind,</strong></br>' +
+            'INTJs are analytical problem-solvers, eager to improve systems and processes with their innovative ideas. They have a talent for seeing possibilities for improvement, whether at work, at home, or in themselves.',
+
+        'INTP': '<br><strong>The Architect,</strong></br>' +
+            'INTPs are philosophical innovators, fascinated by logical analysis, systems, and design. They are preoccupied with theory, and search for the universal law behind everything they see. They want to understand the unifying themes of life, in all their complexity.',
+
+        'INFJ': '<br><strong>The Counselor,</strong></br>' +
+            'INFJs are creative nurturers with a strong sense of personal integrity and a drive to help others realize their potential. Creative and dedicated, they have a talent for helping others with original solutions to their personal challenges.',
+
+        'INFP': '<br><strong>The Healer,</strong></br>' +
+            'INFPs are imaginative idealists, guided by their own core values and beliefs. To a Healer, possibilities are paramount; the reality of the moment is only of passing concern. They see potential for a better future, and pursue truth and meaning with their own flair.',
+
+        'ENFP': '<br><strong>The Champion,</strong></br>' +
+            'ENFPs are people-centered creators with a focus on possibilities and a contagious enthusiasm for new ideas, people and activities. Energetic, warm, and passionate, ENFPs love to help other people explore their creative potential.',
+
+        'ENTJ': '<br><strong>The Commander,</strong></br>' +
+            'ENTJs are strategic leaders, motivated to organize change. They are quick to see inefficiency and conceptualize new solutions, and enjoy developing long-range plans to accomplish their vision. They excel at logical reasoning and are usually articulate and quick-witted.',
+
+        'ENFJ': '<br><strong>The Teacher,</strong></br>' +
+            'ENFJs are idealist organizers, driven to implement their vision of what is best for humanity. They often act as catalysts for human growth because of their ability to see potential in other people and their charisma in persuading others to their ideas.',
+
+        'ENTP': '<br><strong>The Visionary,</strong></br>' +
+            'ENTPs are inspired innovators, motivated to find new solutions to intellectually challenging problems. They are curious and clever, and seek to comprehend the people, systems, and principles that surround them.',
+
+        'ESFP': '<br><strong>The Performer,</strong></br>' +
+            'ESFPs are vivacious entertainers who charm and engage those around them. They are spontaneous, energetic, and fun-loving, and take pleasure in the things around them: food, clothes, nature, animals, and especially people.',
+
+        'ESTJ': '<br><strong>The Supervisor,</strong></br>' +
+            'ESTJs are hardworking traditionalists, eager to take charge in organizing projects and people. Orderly, rule-abiding, and conscientious, ESTJs like to get things done, and tend to go about projects in a systematic, methodical way.',
+
+        'ESFJ': '<br><strong>The Provider,</strong></br>' +
+            'ESFJs are conscientious helpers, sensitive to the needs of others and energetically dedicated to their responsibilities. They are highly attuned to their emotional environment and attentive to both the feelings of others and the perception others have of them.',
+
+        'ESTP': '<br><strong>The Dynamo,</strong></br>' +
+            'ESTPs are energetic thrillseekers who are at their best when putting out fires, whether literal or metaphorical. They bring a sense of dynamic energy to their interactions with others and the world around them.',
+
+        'ISTP': '<br><strong>The Craftsperson,</strong></br>' +
+            'ISTPs are observant artisans with an understanding of mechanics and an interest in troubleshooting. They approach their environments with a flexible logic, looking for practical solutions to the problems at hand.',
+
+        'ISFP': '<br><strong>The Composer,</strong></br>' +
+            'ISFPs are gentle caretakers who live in the present moment and enjoy their surroundings with cheerful, low-key enthusiasm. They are flexible and spontaneous, and like to go with the flow to enjoy what life has to offer.',
+
+        'ISFJ': 'T<br><strong>he Protector,</strong></br>' +
+            'ISFJs are industrious caretakers, loyal to traditions and organizations. They are practical, compassionate, and caring, and are motivated to provide for others and protect them from the perils of life.',
+
+        'ISTJ': 'T<br><strong>he Inspector,</strong></br>' +
+            'ISTJs are responsible organizers, driven to create and enforce order within systems and institutions. They are neat and orderly, inside and out, and tend to have a procedure for everything they do.'
+    };
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const name = formData.get('name');
+
+        try {
+            const response = await fetch(`/personality?name=${name}`);
+            const personality_type = await response.text();
+            const msg = 'Your personality type is: '
+            const explanation = CLASSES[personality_type]
+            results.innerHTML = msg + personality_type + '<br><br>Personality explanation:</br>' + explanation;
+        } catch (error) {
+            results.innerHTML = `<p>Error: ${error.message}</p>`;
+        }
+    });
+</script>
+</body>
+</html>
