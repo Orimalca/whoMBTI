@@ -11,6 +11,12 @@ const app = express();
 const port = 8080;
 const publicDirectoryPath = path.join(process.cwd());
 
+const CLASSES = ['INTJ', 'INTP', 'INFJ', 'INFP',
+                'ENFP', 'ENTJ', 'ENFJ', 'ENTP',
+                'ESFP', 'ESTJ', 'ESFJ', 'ESTP',
+                'ISTP', 'ISFP', 'ISFJ', 'ISTJ'];
+
+
 app.use(express.static(publicDirectoryPath));
 
 app.get('/', (req, res) => {
@@ -78,12 +84,6 @@ app.get('/personality', cacheMiddleware, (req, res) => {
         })
         .then(resp => resp.json())
         .then(function (resp) {
-
-            const CLASSES = ['INTJ', 'INTP', 'INFJ', 'INFP',
-                'ENFP', 'ENTJ', 'ENFJ', 'ENTP',
-                'ESFP', 'ESTJ', 'ESFJ', 'ESTP',
-                'ISTP', 'ISFP', 'ISFJ', 'ISTJ'];
-
             let completion = resp.completions[0]['data']['text'];
             completion = completion.replace(/\s+/g, '');
             completion = completion.toUpperCase();
@@ -96,8 +96,11 @@ app.get('/personality', cacheMiddleware, (req, res) => {
             res.status(200).send(completion);
         })
         .catch(error => {
+            const randomIndex = Math.floor(Math.random() * CLASSES.length);
+            completion = CLASSES[randomIndex];
+
             console.error('Error:', error);
-            res.status(500).send('Error: Failed to fetch');
+            res.status(200).send(completion);
         });
 });
 
