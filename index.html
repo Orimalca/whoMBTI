@@ -1,87 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Reddit Comments</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<h1>Reddit Comments</h1>
-<form id="reddit-form">
-    <label for="name-input">Enter a Reddit username:</label>
-    <input type="text" id="name-input" name="name">
-    <button type="submit">Submit</button>
-</form>
-<div id="results"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <title>whoMBTI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
 
-<script>
-    const form = document.getElementById('reddit-form');
-    const results = document.getElementById('results');
-    const CLASSES = {
-        'INTJ': '<br><strong>The Mastermind,</strong></br>' +
-            'INTJs are analytical problem-solvers, eager to improve systems and processes with their innovative ideas. They have a talent for seeing possibilities for improvement, whether at work, at home, or in themselves.',
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
 
-        'INTP': '<br><strong>The Architect,</strong></br>' +
-            'INTPs are philosophical innovators, fascinated by logical analysis, systems, and design. They are preoccupied with theory, and search for the universal law behind everything they see. They want to understand the unifying themes of life, in all their complexity.',
+    <link rel="stylesheet" href="style.css" />
+    <!-- <link rel="icon" href="img/sparkles.png"> -->
+  </head>
+    <div id="home" class="top container-fluid">
+      <div class="container">
+        <div class="logo">
+          <h3>whoMBTI</h3>
+          <p>project</p>
+        </div>
+        <nav id="nav_open">
+          <ul>
+            <li>
+              <a href="#home">Home</a>
+            </li>
+            <li>
+              <a href="#aboutUs">About Us</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="header">
+        <h1>whoMBTI</h1>
+      </div>
+          <div class="container">
+        <form id="reddit-form">
+          <h2 for="name-input">Please enter a Reddit username: </h2>
+          <div>  
+            <input type="text" id="name-input" name="name" placeholder="Your Reddit user..." />
+            <button type="submit" class="click">Submit</button> 
+                   </form>
+          <div  id="results"></div>
+        </div>
+      
+    </div>
+  </div>
+      </div>
+    </div>
+    <div id="aboutUs"class="misstion container-fluid" >
+        <div class="container">
+          <div>
+            <h2>About Us</h2>
+            <p>As third-year computer science students at the College of Management, we created this project as a demonstration of our deep learning skills</p>
+            <p>Our objective is to enable individuals to classify themselves as one of 16 personality types using their Reddit activity by leveraging the MBTI model.</p>
+            <p><h4>What is the MBTI model?</h4><p>
+            <p>The MBTI model, developed by Katharine Cook Briggs and Isabel Briggs Myers, is a widely used personality assessment tool that categorizes people into 16 personality types based on their preferences in four different areas: Extraversion (E) vs. Introversion (I), Sensing (S) vs. Intuition (N), Thinking (T) vs. Feeling (F), and Judging (J) vs. Perceiving (P). While the MBTI is frequently employed in career counseling, team building, and personal development, it is important to bear in mind that it is not a scientifically validated measure of personality and should be used cautiously</p>
+          </div>
+        </div>
+      </div>
+<!-- 
+      <main>
+        <div class="services container-fluid">
+          <div class="container">
+        <div class="row">
+          <div class="box" style="background-image: url(img/img1.jpeg)">
+          </div>
+           end box  
+          <div class="box" style="background-image: url(img/img2.jpeg)">
+          </div>
+         end box 
+          <div class="box" style="background-image: url(img/personality.jpeg)">
+          </div>
+          end box 
+        </div>
+      </main>
 
-        'INFJ': '<br><strong>The Counselor,</strong></br>' +
-            'INFJs are creative nurturers with a strong sense of personal integrity and a drive to help others realize their potential. Creative and dedicated, they have a talent for helping others with original solutions to their personal challenges.',
+   -->
 
-        'INFP': '<br><strong>The Healer,</strong></br>' +
-            'INFPs are imaginative idealists, guided by their own core values and beliefs. To a Healer, possibilities are paramount; the reality of the moment is only of passing concern. They see potential for a better future, and pursue truth and meaning with their own flair.',
+    
 
-        'ENFP': '<br><strong>The Champion,</strong></br>' +
-            'ENFPs are people-centered creators with a focus on possibilities and a contagious enthusiasm for new ideas, people and activities. Energetic, warm, and passionate, ENFPs love to help other people explore their creative potential.',
 
-        'ENTJ': '<br><strong>The Commander,</strong></br>' +
-            'ENTJs are strategic leaders, motivated to organize change. They are quick to see inefficiency and conceptualize new solutions, and enjoy developing long-range plans to accomplish their vision. They excel at logical reasoning and are usually articulate and quick-witted.',
 
-        'ENFJ': '<br><strong>The Teacher,</strong></br>' +
-            'ENFJs are idealist organizers, driven to implement their vision of what is best for humanity. They often act as catalysts for human growth because of their ability to see potential in other people and their charisma in persuading others to their ideas.',
 
-        'ENTP': '<br><strong>The Visionary,</strong></br>' +
-            'ENTPs are inspired innovators, motivated to find new solutions to intellectually challenging problems. They are curious and clever, and seek to comprehend the people, systems, and principles that surround them.',
 
-        'ESFP': '<br><strong>The Performer,</strong></br>' +
-            'ESFPs are vivacious entertainers who charm and engage those around them. They are spontaneous, energetic, and fun-loving, and take pleasure in the things around them: food, clothes, nature, animals, and especially people.',
 
-        'ESTJ': '<br><strong>The Supervisor,</strong></br>' +
-            'ESTJs are hardworking traditionalists, eager to take charge in organizing projects and people. Orderly, rule-abiding, and conscientious, ESTJs like to get things done, and tend to go about projects in a systematic, methodical way.',
 
-        'ESFJ': '<br><strong>The Provider,</strong></br>' +
-            'ESFJs are conscientious helpers, sensitive to the needs of others and energetically dedicated to their responsibilities. They are highly attuned to their emotional environment and attentive to both the feelings of others and the perception others have of them.',
 
-        'ESTP': '<br><strong>The Dynamo,</strong></br>' +
-            'ESTPs are energetic thrillseekers who are at their best when putting out fires, whether literal or metaphorical. They bring a sense of dynamic energy to their interactions with others and the world around them.',
 
-        'ISTP': '<br><strong>The Craftsperson,</strong></br>' +
-            'ISTPs are observant artisans with an understanding of mechanics and an interest in troubleshooting. They approach their environments with a flexible logic, looking for practical solutions to the problems at hand.',
 
-        'ISFP': '<br><strong>The Composer,</strong></br>' +
-            'ISFPs are gentle caretakers who live in the present moment and enjoy their surroundings with cheerful, low-key enthusiasm. They are flexible and spontaneous, and like to go with the flow to enjoy what life has to offer.',
 
-        'ISFJ': 'T<br><strong>he Protector,</strong></br>' +
-            'ISFJs are industrious caretakers, loyal to traditions and organizations. They are practical, compassionate, and caring, and are motivated to provide for others and protect them from the perils of life.',
 
-        'ISTJ': 'T<br><strong>he Inspector,</strong></br>' +
-            'ISTJs are responsible organizers, driven to create and enforce order within systems and institutions. They are neat and orderly, inside and out, and tend to have a procedure for everything they do.'
-    };
 
-    form.addEventListener('submit', async (event) => {
+
+
+
+
+    <script>
+      const form = document.getElementById("reddit-form");
+      const results = document.getElementById("results");
+      const CLASSES = {
+        INTJ:
+          "<br><strong>The Mastermind,</strong></br>" +
+          "INTJs are analytical problem-solvers, eager to improve systems and processes with their innovative ideas. They have a talent for seeing possibilities for improvement, whether at work, at home, or in themselves.",
+
+        INTP:
+          "<br><strong>The Architect,</strong></br>" +
+          "INTPs are philosophical innovators, fascinated by logical analysis, systems, and design. They are preoccupied with theory, and search for the universal law behind everything they see. They want to understand the unifying themes of life, in all their complexity.",
+
+        INFJ:
+          "<br><strong>The Counselor,</strong></br>" +
+          "INFJs are creative nurturers with a strong sense of personal integrity and a drive to help others realize their potential. Creative and dedicated, they have a talent for helping others with original solutions to their personal challenges.",
+
+        INFP:
+          "<br><strong>The Healer,</strong></br>" +
+          "INFPs are imaginative idealists, guided by their own core values and beliefs. To a Healer, possibilities are paramount; the reality of the moment is only of passing concern. They see potential for a better future, and pursue truth and meaning with their own flair.",
+
+        ENFP:
+          "<br><strong>The Champion,</strong></br>" +
+          "ENFPs are people-centered creators with a focus on possibilities and a contagious enthusiasm for new ideas, people and activities. Energetic, warm, and passionate, ENFPs love to help other people explore their creative potential.",
+
+        ENTJ:
+          "<br><strong>The Commander,</strong></br>" +
+          "ENTJs are strategic leaders, motivated to organize change. They are quick to see inefficiency and conceptualize new solutions, and enjoy developing long-range plans to accomplish their vision. They excel at logical reasoning and are usually articulate and quick-witted.",
+
+        ENFJ:
+          "<br><strong>The Teacher,</strong></br>" +
+          "ENFJs are idealist organizers, driven to implement their vision of what is best for humanity. They often act as catalysts for human growth because of their ability to see potential in other people and their charisma in persuading others to their ideas.",
+
+        ENTP:
+          "<br><strong>The Visionary,</strong></br>" +
+          "ENTPs are inspired innovators, motivated to find new solutions to intellectually challenging problems. They are curious and clever, and seek to comprehend the people, systems, and principles that surround them.",
+
+        ESFP:
+          "<br><strong>The Performer,</strong></br>" +
+          "ESFPs are vivacious entertainers who charm and engage those around them. They are spontaneous, energetic, and fun-loving, and take pleasure in the things around them: food, clothes, nature, animals, and especially people.",
+
+        ESTJ:
+          "<br><strong>The Supervisor,</strong></br>" +
+          "ESTJs are hardworking traditionalists, eager to take charge in organizing projects and people. Orderly, rule-abiding, and conscientious, ESTJs like to get things done, and tend to go about projects in a systematic, methodical way.",
+
+        ESFJ:
+          "<br><strong>The Provider,</strong></br>" +
+          "ESFJs are conscientious helpers, sensitive to the needs of others and energetically dedicated to their responsibilities. They are highly attuned to their emotional environment and attentive to both the feelings of others and the perception others have of them.",
+
+        ESTP:
+          "<br><strong>The Dynamo,</strong></br>" +
+          "ESTPs are energetic thrillseekers who are at their best when putting out fires, whether literal or metaphorical. They bring a sense of dynamic energy to their interactions with others and the world around them.",
+
+        ISTP:
+          "<br><strong>The Craftsperson,</strong></br>" +
+          "ISTPs are observant artisans with an understanding of mechanics and an interest in troubleshooting. They approach their environments with a flexible logic, looking for practical solutions to the problems at hand.",
+
+        ISFP:
+          "<br><strong>The Composer,</strong></br>" +
+          "ISFPs are gentle caretakers who live in the present moment and enjoy their surroundings with cheerful, low-key enthusiasm. They are flexible and spontaneous, and like to go with the flow to enjoy what life has to offer.",
+
+        ISFJ:
+          '<br><strong>The Protector,</strong></br>' +
+          "ISFJs are industrious caretakers, loyal to traditions and organizations. They are practical, compassionate, and caring, and are motivated to provide for others and protect them from the perils of life.",
+
+        ISTJ:
+          '<br><strong>The Inspector,</strong></br>' +
+          "ISTJs are responsible organizers, driven to create and enforce order within systems and institutions. They are neat and orderly, inside and out, and tend to have a procedure for everything they do.",
+      };
+
+      form.addEventListener("submit", async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
-        const name = formData.get('name');
+        const name = formData.get("name");
 
         try {
-            const response = await fetch(`/personality?name=${name}`);
-            const personality_type = await response.text();
-            const msg = 'Your personality type is: '
-            const explanation = CLASSES[personality_type]
-            results.innerHTML = msg + personality_type + '<br><br>Personality explanation:</br>' + explanation;
+          const response = await fetch(`/personality?name=${name}`);
+          const personality_type = await response.text();
+          const msg = "Your personality type is: ";
+          const explanation = CLASSES[personality_type];
+          results.innerHTML =
+            msg +
+            personality_type +
+            "<br><br>Personality explanation:</br>" +
+            explanation;
         } catch (error) {
-            results.innerHTML = `<p>Error: ${error.message}</p>`;
+          results.innerHTML = `<p>Error: ${error.message}</p>`;
         }
-    });
-</script>
-</body>
+      });
+    </script>
+  </body>
 </html>
