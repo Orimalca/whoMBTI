@@ -27,10 +27,7 @@ app.get('/', (req, res) => {
 app.get('/personality', cacheMiddleware, (req, res) => {
     const urlParams = new URLSearchParams(req.url.split('?')[1]);
     const name = urlParams.get('name');
-    if (!name) {
-        res.status(400).send('Error: Missing "name" parameter');
-        return;
-    }
+    if (!name) { res.status(400); return; }
     fetch(`https://www.reddit.com/user/${name}/comments.json`, {
         headers: {
             'User-Agent': 'node.js/1.0',
