@@ -82,7 +82,7 @@ app.get('/personality', cacheMiddleware, (req, res) => {
     })
     .then(resp => resp.json())
     .then(function (resp) {
-        const completion = resp.completions[0]['data']['text']; // in case of undefined it will go to the catch block
+        let completion = resp.completions[0]['data']['text']; // in case of undefined it will go to the catch block
         completion = completion.replace(/\s+/g, '');
         completion = completion.toUpperCase();
 
